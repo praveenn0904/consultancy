@@ -42,7 +42,7 @@ const Billing = () => {
 
       if (value.trim()) {
         try {
-          const res = await fetch(`https://medstock-backend-oymi.onrender.com/api/medicine/${value}`);
+          const res = await fetch(`http://localhost:5000/api/medicine/${value}`);
           if (res.ok) {
             const data = await res.json();
             updated[index].name = data.name;
@@ -119,7 +119,7 @@ const Billing = () => {
     };
 
     try {
-      const res = await fetch("https://medstock-backend-oymi.onrender.com/api/invoices", {
+      const res = await fetch("http://localhost:5000/api/invoices", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -131,7 +131,7 @@ const Billing = () => {
         return;
       }
 
-      const stockRes = await fetch("https://medstock-backend-oymi.onrender.com/api/medicine/reduce-stock", {
+      const stockRes = await fetch("http://localhost:5000/api/medicine/reduce-stock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items }),
