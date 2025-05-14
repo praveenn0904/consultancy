@@ -6,26 +6,32 @@ function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await fetch('http://localhost:5000/api/login', {
+      const response = await fetch('https://backend-8kv3.onrender.com/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
 
-      const data = await res.json();
-      if (res.ok) {
-        alert('Login successful');
-        navigate('/dashboard');
-      } else {
-        alert(data.message);
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || 'Login failed');
+        return;
       }
-    } catch (err) {
-      console.error('Login error:', err);
+
+      alert('Login successful');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Something went wrong. Please try again later.');
     }
   };
 
@@ -33,14 +39,26 @@ function Login() {
     <div className="main-container">
       <div className="left-panel" />
       <div className="right-panel">
-        <div className="brand-name">Sre Amman Pharma Agency</div><br></br>
-
+        <div className="brand-name">Sre Amman Pharma Agency</div>
         <form onSubmit={handleLogin}>
-          <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
-          <input type="password" name="password" placeholder="Password" value={form.password} onChange={handleChange} required />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
           <button type="submit">Login</button>
         </form>
-
         <p>
           New user? <Link to="/signup" className="auth-link">Sign up here</Link><br />
           Forgot password? <Link to="/forgot-password" className="auth-link">Reset it here</Link>

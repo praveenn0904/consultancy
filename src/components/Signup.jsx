@@ -14,7 +14,7 @@ function Signup() {
     e.preventDefault();
 
     try {
-      const res = await fetch('https://medstock-backend-oymi.onrender.com/api/signup', {
+      const res = await fetch('https://backend-8kv3.onrender.com/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

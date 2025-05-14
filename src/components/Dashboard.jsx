@@ -18,13 +18,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchDashboardStats = async () => {
-      const res = await fetch("http://localhost:5000/api/dashboard/stats");
+      const res = await fetch("https://backend-8kv3.onrender.com/api/dashboard/stats");
       const data = await res.json();
       setStats(data);
     };
 
     const fetchMedicines = async () => {
-      const res = await fetch("http://localhost:5000/api/medicine/all");
+      const res = await fetch("https://backend-8kv3.onrender.com/api/medicine/all");
       const data = await res.json();
       setMedicines(data);
     };
